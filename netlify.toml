@@ -1,0 +1,17 @@
+[build]
+  command = "echo 'Static site - no build needed'"
+  publish = "src/main/resources/static"
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[env]
+  [env.production]
+    REACT_APP_API_URL = "https://your-backend-url.com/api"

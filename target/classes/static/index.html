@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RentHub - Vehicle Rental System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="welcome-overlay" class="welcome-overlay">
+        <h1>Welcome Rent Vehicle Store</h1>
+    </div>
+    <div class="glass-container hidden">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <h1 class="logo" onclick="showSection('home-categories-view')" style="cursor: pointer;">RentHub</h1>
+            <ul class="nav-links">
+                <li><a href="#" onclick="showSection('home-categories-view')">Home</a></li>
+                <li><a href="#" onclick="showSection('admin-view')">Admin Panel</a></li>
+            </ul>
+        </nav>
+
+        <main class="content-area">
+            <!-- Categories View (Home) -->
+            <section id="home-categories-view" class="view-section active">
+                <header class="section-header">
+                    <h2>Select a Vehicle Category</h2>
+                    <p>Rent the best cars, bikes, and trucks at affordable prices!</p>
+                </header>
+                <div class="category-grid" id="category-grid">
+                    <!-- Categories injected by JS -->
+                </div>
+            </section>
+
+            <!-- Vehicles List View -->
+            <section id="vehicles-list-view" class="view-section hidden">
+                <header class="section-header">
+                    <h2>Available <span id="current-category"></span>s</h2>
+                    <button class="btn btn-secondary back-btn" onclick="showSection('home-categories-view')">← Back to
+                        Categories</button>
+                </header>
+                <div class="vehicle-grid" id="vehicle-grid">
+                    <!-- Vehicles will be injected here via JS -->
+                </div>
+            </section>
+
+            <!-- Booking View -->
+            <section id="booking-view" class="view-section hidden">
+                <div class="card glass-card form-card">
+                    <h2>Book Vehicle</h2>
+                    <h3 id="booking-vehicle-name"></h3>
+                    <p>Rent: ₹<span id="booking-rent-price"></span> / hr</p>
+                    <div class="form-group">
+                        <label for="booking-hours">Enter Number of Hours:</label>
+                        <input type="number" id="booking-hours" min="1" value="1" oninput="calculateTotal()">
+                    </div>
+
+                    <div class="total-preview">
+                        <strong>Total Price: </strong> ₹<span id="calculated-total">0.00</span>
+                    </div>
+
+                    <!-- Hidden field to keep original payment flow working -->
+                    <input type="hidden" id="hidden-payment-method" value="Cash">
+
+                    <div class="action-buttons">
+                        <button class="btn btn-secondary" onclick="showSection('vehicles-list-view')">Cancel
+                            Booking</button>
+                        <button class="btn btn-primary" onclick="confirmBooking()">Confirm Booking</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Confirmation View -->
+            <section id="confirmation-view" class="view-section hidden">
+                <div class="card glass-card form-card success-card">
+                    <div class="success-icon">✔️</div>
+                    <h2>Booking Successful!</h2>
+                    <p>Your vehicle is ready to go.</p>
+                    <div class="confirmation-details">
+                        <p><strong>Booking ID:</strong> <span id="conf-id"></span></p>
+                        <p><strong>Vehicle:</strong> <span id="conf-vehicle"></span></p>
+                        <p><strong>Duration:</strong> <span id="conf-hours"></span> hours</p>
+                        <p><strong>Total Price Paid:</strong> ₹<span id="conf-total"></span></p>
+                    </div>
+                    <button class="btn btn-primary mt-2" onclick="showSection('home-categories-view')">Return to
+                        Home</button>
+                </div>
+            </section>
+
+            <!-- Admin View -->
+            <section id="admin-view" class="view-section hidden">
+                <div class="admin-panel glass-card">
+                    <h2>Admin Panel</h2>
+                    <div class="admin-tables">
+                        <h3>All Bookings</h3>
+                        <table class="glass-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Vehicle</th>
+                                    <th>Hours</th>
+                                    <th>Total (₹)</th>
+                                    <th>Method</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bookings-tbody">
+                                <!-- JS injected -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+</body>
+
+</html>
